@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.rawgit.com/theus/chart.css/v1.0.0/dist/chart.css" />
+  <title>Document</title>
+</head>
+<style>
+  .simple-bar-chart {
+    --line-count: 10;
+    --line-color: currentcolor;
+    --line-opacity: 0.25;
+    --item-gap: 2%;
+    --item-default-color: #060606;
+
+    height: 20rem;
+    display: grid;
+    grid-auto-flow: column;
+    gap: var(--item-gap);
+    align-items: end;
+    padding-inline: var(--item-gap);
+    --padding-block: 1.5rem;
+    /*space for labels*/
+    padding-block: var(--padding-block);
+    position: relative;
+    isolation: isolate;
+  }
+
+  .simple-bar-chart::after {
+    content: "";
+    position: absolute;
+    inset: var(--padding-block) 0;
+    z-index: -1;
+    --line-width: 1px;
+    --line-spacing: calc(100% / var(--line-count));
+    background-image: repeating-linear-gradient(to top, transparent 0 calc(var(--line-spacing) - var(--line-width)), var(--line-color) 0 var(--line-spacing));
+    box-shadow: 0 var(--line-width) 0 var(--line-color);
+    opacity: var(--line-opacity);
+  }
+
+  .simple-bar-chart>.item {
+    height: calc(1% * var(--val));
+    background-color: var(--clr, var(--item-default-color));
+    position: relative;
+    animation: item-height 1s ease forwards
+  }
+
+  @keyframes item-height {
+    from {
+      height: 0
+    }
+  }
+
+  .simple-bar-chart>.item>* {
+    position: absolute;
+    text-align: center
+  }
+
+  .simple-bar-chart>.item>.label {
+    inset: 100% 0 auto 0
+  }
+
+  .simple-bar-chart>.item>.value {
+    inset: auto 0 100% 0
+  }
+</style>
+
+<body>
+
+  <div class="main">
+    <nav class="navbar navbar-expand-lg bg-dark " data-bs-theme="dark">
+      <div class="container">
+        <a class="navbar-brand ms-3" href="#">Start Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+            <button class="btn ms-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+              aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
+
+
+        </div>
+
+
+        <form class="d-flex  align-items-center mx-3" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search for..." aria-label="Search">
+          <div class="dropdown">
+            <button class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-user  text-secondary   "></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </div>
+        </form>
+      </div>
+  </div>
+  </nav>
+  <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+    aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+
+    </div>
+
+  </div>
+  <div class="container mt-3">
+    <h1>Dashboard</h1>
+    <div class="container text-secondary py-3 bg-light">Dashboard</div>
+
+    <div class="container">
+      <div class="row mt-5 gy-4">
+        <div class="col-sm-6 col-md-3 col-1g-4 ">
+          <div class="card text-white " style="background-color:#007bff;">
+            <div class="card-body  " style="height:60px;">
+              Primary Card
+            </div>
+            <div class="card-header" style="background-color:#0169d7;">
+              <div class="d-flex justify-content-between " style="height: 25px;">
+                <p> View Details </p>
+                <p> > </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-1g-4 ">
+          <div class="card text-white " style="background-color:#ffc108">
+            <div class="card-body  " style="height:60px;">
+              Warning Card
+            </div>
+            <div class="card-header" style="background-color:#e8af03">
+              <div class="d-flex justify-content-between " style="height: 25px;">
+                <p> View Details </p>
+                <p> > </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-1g-4  ">
+          <div class="card text-white " style="background-color:#28a745">
+            <div class="card-body  " style="height:60px;">
+              Success Card
+            </div>
+            <div class="card-header" style="background-color:#208638">
+              <div class="d-flex justify-content-between " style="height: 25px;">
+                <p> View Details </p>
+                <p> > </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-1g-4 ">
+          <div class="card text-white " style="background-color:#ff4800;">
+            <div class="card-body  " style="height:60px;">
+              Danger card
+            </div>
+            <div class="card-header" style="background-color:#911105;">
+              <div class="d-flex justify-content-between " style="height: 25px;">
+                <p> View Details </p>
+                <p> > </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container text-center">
+        <div class="row mt-5">
+          <div class="col-sm-12 col-md-12 col-lg-6 col-12  bg-light p-4 ">
+            <div class="container-fluid bg-light">Area Chart Example</div>
+            <div class="charts ">
+              <div class="charts__chart chart--p100 chart--default" data-percent></div><!-- /.charts__chart -->
+              <span>chart--blue</span>
+              <div class="charts__chart chart--p80 chart--blue" data-percent></div><!-- /.charts__chart -->
+              <span>chart--green</span>
+              <div class="charts__chart chart--p60 chart--green" data-percent></div><!-- /.charts__chart -->
+              <span>chart--red</span>
+              <div class="charts__chart chart--p40 chart--red" data-percent></div><!-- /.charts__chart -->
+              <span>chart--yellow</span>
+              <div class="charts__chart chart--p20 chart--yellow" data-percent></div><!-- /.charts__chart -->
+              <span>chart--grey</span>
+              <div class="charts__chart chart--p5 chart--grey" data-percent></div><!-- /.charts__chart -->
+
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-12 col-lg-6 col-12">
+            <div class="container-fluid bg-light" style="height:30px;">Bar Chart Example</div>
+            <div class="simple-bar-chart">
+              <div class="item" style="--clr: #5EB344; --val: 80">
+                <div class="label">Label 1</div>
+                <div class="value">80%</div>
+              </div>
+
+              <div class="item" style="--clr: #FCB72A; --val: 50">
+                <div class="label">Label 2</div>
+                <div class="value">50%</div>
+              </div>
+
+              <div class="item" style="--clr: #F8821A; --val: 100">
+                <div class="label">Label 3</div>
+                <div class="value">100%</div>
+              </div>
+
+              <div class="item" style="--clr: #E0393E; --val: 15">
+                <div class="label">Label 4</div>
+                <div class="value">15%</div>
+              </div>
+
+              <div class="item" style="--clr: #963D97; --val: 1">
+                <div class="label">Label 5</div>
+                <div class="value">1%</div>
+              </div>
+
+              <div class="item" style="--clr: #069CDB; --val: 90">
+                <div class="label">Label 6</div>
+                <div class="value">90%</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <div class="container-fluid py-1 bg-light">
+      <p>DataTable Example</p>
+    </div>
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>
